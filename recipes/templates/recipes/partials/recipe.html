@@ -35,11 +35,18 @@
             </div>
         </div>
     </div>
+    {% if is_datail_page is not True %}    
+        <footer class="recipe-footer">
+            <a class="recipe-read-more button button-dark button-full-width" href="/recipes/3/">
+                <i class="fas fa-eye"></i>
+                <span>ver mais...</span>
+            </a>
+        </footer>
+    {% endif %}
 
-    <footer class="recipe-footer">
-        <a class="recipe-read-more button button-dark button-full-width" href="/recipes/3/">
-            <i class="fas fa-eye"></i>
-            <span>ver mais...</span>
-        </a>
-    </footer>
+    {% if is_datail_page is True %}
+        <div class="preparation-steps">
+            {{recipe.preparation_steps|linebreaksbr}}
+        </div>
+    {% endif %}
 </div>
