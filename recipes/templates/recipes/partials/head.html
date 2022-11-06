@@ -82,7 +82,7 @@
         }
         
         .container {
-            max-width: 144rem;
+            max-width: 100rem;
             margin: 0 auto;
             padding: var(--spacing-gutter-medium);
         }
@@ -147,6 +147,21 @@
         
         .search-form:focus-within .search-button {
             color: var(--color-primary);
+        }
+        
+        .main-content {
+            padding-top: 0;
+        }
+        
+        .main-content-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-gutter-large);
+        }
+        
+        .temp {
+            height: 20rem;
+            background: red;
         }
     </style>
 
