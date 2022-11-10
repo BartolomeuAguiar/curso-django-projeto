@@ -1,5 +1,4 @@
-from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import get_list_or_404, render
 
 from utils.recipes.factory import make_recipe
 
@@ -18,14 +17,11 @@ def home(request):
 
 
 def category(request, category_id):
-    recipes = Recipe.objects.filter(
-        category__id=category_id, is_published=True).order_by('-id')
-
-    if not recipes:
-        raise Http404('Page not Found ')
+    recipes = get_list_or_404(Recipe.objects.filter(category__id=category_id,
+                              is_published=True).order_by('-id'))
 
     category_name = getattr(
-        getattr(recipes.first(), 'category', None),
+        getattr(recipes[0], 'category', None),
         'name',
         'Not Found'
     )
