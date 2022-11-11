@@ -1,7 +1,5 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
-from utils.recipes.factory import make_recipe
-
 from .models import Recipe
 
 # Create your views here.
@@ -13,6 +11,9 @@ def home(request):
     recipes = Recipe.objects.filter(
         is_published=True
     ).order_by('-id')
+    # recipes = get_list_or_404(Recipe.objects.filter(
+    #         is_published = True,).order_by('-id')
+    #     )
     return render(request, 'recipes/pages/home.html', context={
         'recipes': recipes
     })
