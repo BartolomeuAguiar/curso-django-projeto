@@ -48,8 +48,12 @@ class RecipeViewsTest(TestCase):
             preparation_steps='um texto bem grande deve vir aqui',
             preparation_steps_is_html=False,
             is_published=True,
+            cover='/'
         )
-        assert 1 == 1
+        response = self.client.get(reverse('recipes:home'))
+        content = response.content.decode('utf-8')
+        self.assertIn('recipe test', content)
+        pass
 
     def test_recipe_category_view_functions_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
