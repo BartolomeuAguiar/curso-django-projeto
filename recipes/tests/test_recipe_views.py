@@ -35,6 +35,16 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertEqual(len(response_context_recipes), 1)
         self.assertIn('recipe test', content)
 
+    def test_recipe_home_template_not_loads_recipes_not_published(self):
+        # Altered atribute is_published to false
+        self.make_recipe(is_published=False)
+        response = self.client.get(reverse('recipes:home'))
+
+        self.assertIn(
+            '<h1>NADA PARA MOSTRAR AQUI 🐛</h1>',
+            response.content.decode('utf-8')
+        )
+
     def test_recipe_category_view_functions_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
         self.assertTrue(view.func, views.category)
@@ -44,6 +54,15 @@ class RecipeViewsTest(RecipeTestBase):
             reverse('recipes:category', kwargs={'category_id': 1000}))
         self.assertEqual(response.status_code, 404)
 
+    def test_category_template_loads_recipes(self):
+        needed_name = 'Bolo de Fubá'
+        self.make_recipe(title=needed_name)
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        content = response.content.decode('utf-8')
+        # check if needed _name exists
+        self.assertIn(needed_name, content)
+
     def test_recipe_detail_view_functions_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertTrue(view.func, views.recipe)
@@ -52,3 +71,13 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(
             reverse('recipes:recipe', kwargs={'id': 1000}))
         self.assertEqual(response.status_code, 404)
+
+    def test_detail_page_template_loads_correct_recipe(self):
+        # its necessary a title fo a recipe
+        needed_name = 'This is test title for a detail - Its loads one reci pe'
+        self.make_recipe(title=needed_name)
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': 1}))
+        content = response.content.decode('utf-8')
+        # check if needed _name exists
+        self.assertIn(needed_name, content)
