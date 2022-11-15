@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import resolve, reverse
 
 from recipes import views
+from recipes.models import Category, Recipe
 
 
 class RecipeViewsTest(TestCase):
@@ -23,6 +25,31 @@ class RecipeViewsTest(TestCase):
             '<h1>NADA PARA MOSTRAR AQUI 🐛</h1>',
             response.content.decode('utf-8')
         )
+
+    def test_recipe_home_template_loads_recipes(self):
+        category = Category.objects.create(name='Categoria')
+        author = User.objects.create(
+            first_name='user',
+            last_name='criado_test',
+            username='usernumber1',
+            password='usernumber1',
+            email='usernumber1@user.com',
+        )
+        recipe = Recipe.objects.create(
+            category=category,
+            author=author,
+            title='recipe test',
+            description='lorem ipsum dolor',
+            slug='recipe-test',
+            preparation_time=5,
+            preparation_time_unit='minutos',
+            servings=3,
+            servings_unit='fatias',
+            preparation_steps='um texto bem grande deve vir aqui',
+            preparation_steps_is_html=False,
+            is_published=True,
+        )
+        assert 1 == 1
 
     def test_recipe_category_view_functions_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
