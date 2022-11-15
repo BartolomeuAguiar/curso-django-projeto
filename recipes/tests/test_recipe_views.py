@@ -1,12 +1,12 @@
-from django.contrib.auth.models import User
-from django.test import TestCase
 from django.urls import resolve, reverse
 
 from recipes import views
-from recipes.models import Category, Recipe
+
+from .test_recipe_base import RecipeTestBase
 
 
-class RecipeViewsTest(TestCase):
+class RecipeViewsTest(RecipeTestBase):
+
     def test_recipe_home_view_functions_is_correct(self):
         view = resolve(reverse('recipes:home'))
         self.assertTrue(view.func, views.home)
@@ -27,33 +27,13 @@ class RecipeViewsTest(TestCase):
         )
 
     def test_recipe_home_template_loads_recipes(self):
-        category = Category.objects.create(name='Categoria')
-        author = User.objects.create(
-            first_name='user',
-            last_name='criado_test',
-            username='usernumber1',
-            password='usernumber1',
-            email='usernumber1@user.com',
-        )
-        recipe = Recipe.objects.create(
-            category=category,
-            author=author,
-            title='recipe test',
-            description='lorem ipsum dolor',
-            slug='recipe-test',
-            preparation_time=5,
-            preparation_time_unit='minutos',
-            servings=3,
-            servings_unit='fatias',
-            preparation_steps='um texto bem grande deve vir aqui',
-            preparation_steps_is_html=False,
-            is_published=True,
-            cover='/'
-        )
+        self.make_recipe()
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
+        response_context_recipes = response.context['recipes']
+
+        self.assertEqual(len(response_context_recipes), 1)
         self.assertIn('recipe test', content)
-        pass
 
     def test_recipe_category_view_functions_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
