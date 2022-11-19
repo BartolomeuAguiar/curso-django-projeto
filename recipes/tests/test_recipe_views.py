@@ -63,6 +63,13 @@ class RecipeViewsTest(RecipeTestBase):
         # check if needed _name exists
         self.assertIn(needed_name, content)
 
+    def test_recipe_category_template_not_loads_recipes_not_published(self):
+        # Altered atribute is_published to false
+        recipe = self.make_recipe(is_published=False)
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': recipe.category.id}))
+        self.assertEqual(response.status_code, 404)
+
     def test_recipe_detail_view_functions_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertTrue(view.func, views.recipe)
@@ -81,3 +88,10 @@ class RecipeViewsTest(RecipeTestBase):
         content = response.content.decode('utf-8')
         # check if needed _name exists
         self.assertIn(needed_name, content)
+
+    def test_recipe_detail_template_not_loads_recipe_not_published(self):
+        # Altered atribute is_published to false
+        recipe = self.make_recipe(is_published=False)
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': recipe.id}))
+        self.assertEqual(response.status_code, 404)
