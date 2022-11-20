@@ -1,13 +1,32 @@
 from django.core.exceptions import ValidationError
 from parameterized import parameterized
 
-from .test_recipe_base import RecipeTestBase
+from .test_recipe_base import Recipe, RecipeTestBase
+
+#from recipes.models import Recipe
 
 
 class RecipeModelTest(RecipeTestBase):
     def setUp(self) -> None:
         self.recipe = self.make_recipe()
         return super().setUp()
+
+    def make_recipe_no_defaults(self):
+        recipe = Recipe(
+            category=self.make_category(name='Category name no default'),
+            author=self.make_author(username='username_no_default'),
+            title='recipe test no default',
+            description='Recipe description no default',
+            slug='recipe-test-no-default',
+            preparation_time=10,
+            preparation_time_unit='Minutos',
+            servings=5,
+            servings_unit='Porções',
+            preparation_steps='um texto bem grande deve vir aqui',
+        )
+        recipe.full_clean()
+        recipe.save()
+        return recipe
 
     @parameterized.expand([
         ('title', 65),
@@ -20,3 +39,17 @@ class RecipeModelTest(RecipeTestBase):
         setattr(self.recipe, field, 'A' * (max_length+1))
         with self.assertRaises(ValidationError):
             self.recipe.full_clean()
+
+    def test_recipe_preparation_steps_is_html_is_false_by_default(self):
+        recipe = self.make_recipe_no_defaults()
+        self.assertFalse(
+            recipe.preparation_steps_is_html,
+            msg='Recipe preparation_steps_is_html is not false',
+        )
+
+    def test_is_published_is_false_by_default(self):
+        recipe = self.make_recipe_no_defaults()
+        self.assertFalse(
+            recipe.is_published,
+            msg='Recipe is_published is not false',
+        )
