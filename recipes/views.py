@@ -4,7 +4,7 @@ from .models import Recipe
 
 # Create your views here.
 
-# Exibe Todas as receitas em formato de lista
+# Show all recipes in list format
 
 
 def home(request):
@@ -18,7 +18,7 @@ def home(request):
         'recipes': recipes
     })
 
-# Exibe as Receitas Filtradas pela Categoria Selecionada
+# Returns the Recipes filtereds by category
 
 
 def category(request, category_id):
@@ -36,7 +36,7 @@ def category(request, category_id):
         'title': f'{category_name} - Category'
     })
 
-# Exibe  apenas Uma receita na página
+# Returns the datailed recipe page
 
 
 def recipe(request, id):
@@ -51,3 +51,9 @@ def recipe(request, id):
         'recipe': recipe,
         'is_datail_page': True,
     })
+
+# Returns Searchs page
+
+
+def search(request):
+    ...
