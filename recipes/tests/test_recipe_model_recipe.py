@@ -53,3 +53,17 @@ class RecipeModelTest(RecipeTestBase):
             recipe.is_published,
             msg='Recipe is_published is not false',
         )
+
+    def test_recipe_string_represetation(self):
+        needed = 'Title to test string representation'
+        self.recipe.title = 'Title to test string representation'
+        self.recipe.full_clean()
+        self.recipe.save()
+        self.assertEqual(str(self.recipe),
+                         needed,
+                         msg=f'Recipe str representation must be '
+                         f'{needed} but "{str(self.recipe)}" was received'
+                         )
+
+    def test_category_string_represetation(self):
+        ...
