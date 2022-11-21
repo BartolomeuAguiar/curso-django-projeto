@@ -70,7 +70,7 @@ class RecipeViewsTest(RecipeTestBase):
             reverse('recipes:recipe', kwargs={'id': recipe.category.id}))
         self.assertEqual(response.status_code, 404)
 
-    def test_recipe_detail_view_functions_is_correct(self):
+    def test_recipe_detail_view_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertTrue(view.func, views.recipe)
 
@@ -100,3 +100,7 @@ class RecipeViewsTest(RecipeTestBase):
         url = reverse('recipes:search')
         resolved = resolve(url)
         self.assertIs(resolved.func, views.search)
+
+    def test_recipe_search_loads_correct_templates(self):
+        response = self.client.get(reverse('recipes:search'))
+        self.assertTemplateUsed(response, 'recipes/pages/search.html')
