@@ -5,4 +5,5 @@ omit =
     **/*test*.py,
     manage.py,
     recipes/migrations/*,
-    project/*
+    project/*,
+    utils\recipes\factory.py

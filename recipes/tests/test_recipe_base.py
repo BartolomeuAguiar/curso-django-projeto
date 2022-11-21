@@ -32,7 +32,7 @@ class RecipeTestBase(TestCase):
         author_data=None,
         title='recipe test',
         description='lorem ipsum dolor',
-        slug='recipe-test',
+        slug='recipe-test-test-test',
         preparation_time=5,
         preparation_time_unit='minutos',
         servings=3,
