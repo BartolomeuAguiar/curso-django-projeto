@@ -3,8 +3,6 @@ from parameterized import parameterized
 
 from .test_recipe_base import Recipe, RecipeTestBase
 
-#from recipes.models import Recipe
-
 
 class RecipeModelTest(RecipeTestBase):
     def setUp(self) -> None:
@@ -64,6 +62,3 @@ class RecipeModelTest(RecipeTestBase):
                          msg=f'Recipe str representation must be '
                          f'{needed} but "{str(self.recipe)}" was received'
                          )
-
-    def test_category_string_represetation(self):
-        ...
