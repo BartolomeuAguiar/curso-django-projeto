@@ -8,8 +8,10 @@ link to course: https://www.udemy.com/share/105LKu3@VM8eO-5E3xVJqzsGa4bpeFgPDu-5
 Duration of the course: out/22 a xxx
 
 ## <h2>Important topics<h2>
-##### template da linguagem django
+##### About Django template
 https://docs.djangoproject.com/pt-br/4.0/ref/templates/language/
-#### Documentação Querysets
+#### Documentation of Querysets
 https://docs.djangoproject.com/en/4.1/topics/db/queries/
 https://docs.djangoproject.com/pt-br/4.1/ref/models/querysets/
+#### Making queries in django
+https://docs.djangoproject.com/en/4.1/topics/db/queries/
