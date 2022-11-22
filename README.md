@@ -15,3 +15,5 @@ https://docs.djangoproject.com/en/4.1/topics/db/queries/
 https://docs.djangoproject.com/pt-br/4.1/ref/models/querysets/
 #### Making queries in django
 https://docs.djangoproject.com/en/4.1/topics/db/queries/
+#### Complex lookups with Q objects
+https://docs.djangoproject.com/en/4.1/topics/db/queries/#complex-lookups-with-q
