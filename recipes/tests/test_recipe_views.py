@@ -41,7 +41,7 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(reverse('recipes:home'))
 
         self.assertIn(
-            '<h1>NADA PARA MOSTRAR AQUI 🐛</h1>',
+            '<h1>NO RECIPES FOUND HERE 🐛</h1>',
             response.content.decode('utf-8')
         )
 
