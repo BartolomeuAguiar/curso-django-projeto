@@ -17,3 +17,6 @@ https://docs.djangoproject.com/pt-br/4.1/ref/models/querysets/
 https://docs.djangoproject.com/en/4.1/topics/db/queries/
 #### Complex lookups with Q objects
 https://docs.djangoproject.com/en/4.1/topics/db/queries/#complex-lookups-with-q
+
+#### "Password" Generator
+python -c "import string as s;from random import SystemRandom as sr;print(''.join(sr().choices(s.ascii_letters + s.punctuation + 'ç', k=64)))"
