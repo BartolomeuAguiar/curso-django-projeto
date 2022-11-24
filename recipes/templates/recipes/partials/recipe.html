@@ -5,6 +5,7 @@
         </a>
     </div>
     <div class="recipe-title-container">
+        <span class="recipe-author-item">{{ recipe.slug }}</span>
         <h2 class="recipe-title">
             <a href=" {% url 'recipes:recipe' recipe.id %} ">
                 {{ recipe.title }}
@@ -37,6 +38,7 @@
         {{recipe.description}}</div>
     <div class="recipe-meta-container">
         <div class="recipe-meta recipe-preparation">
+            
             <h3 class="recipe-meta-title"><i class="fas fa-stopwatch"></i> Preparo</h3>
             <div class="recipe-meta-text">
                 {{recipe.preparation_time}} {{recipe.preparation_time_unit}}
