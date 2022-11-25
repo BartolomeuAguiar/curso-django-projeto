@@ -46,17 +46,14 @@ def category(request, category_id):
     return render(request, 'recipes/pages/category.html', context={
         'recipes': page_obj,
         'pagination_range': pagination_range,
-        'title': f'{category_name} - Category'
+        'title': f'{category_name} - Category |'
     })
 
 # Returns the datailed recipe page
 
 
 def recipe(request, id):
-    # recipe = Recipe.objects.filter(
-    #     id=id,
-    #     is_published=True,
-    # ).order_by('-id').first()
+
     recipe = get_object_or_404(
         Recipe.objects.filter(id=id, is_published=True))
 
@@ -83,7 +80,7 @@ def search(request):
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request, 'recipes/pages/search.html', {
-        'page_title': f'Search for "{search_term}',
+        'page_title': f'Search for "{search_term} |',
         'search_term': search_term,
         'pagination_range': pagination_range,
         'recipes': page_obj,
