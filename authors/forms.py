@@ -35,6 +35,20 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['password'], 'Type you password')
         add_placeholder(self.fields['password2'], 'Repeat you password')
 
+    username = forms.CharField(
+        label='Username',
+        error_messages={
+            'required': 'This field must not be empty',
+            'min_length': 'Username must have 4 characters',
+            'max_length': 'Username must less than 150 characters',
+        },
+        help_text=(
+            'Username must have letters, numbers or one of those @.+-_. '
+            'The length should be between 4 and 150 characters.'
+        ),
+        min_length=4,
+        max_length=150,
+    )
     password = forms.CharField(
         widget=forms.PasswordInput(),
         error_messages={
@@ -78,16 +92,6 @@ class RegisterForm(forms.ModelForm):
             'email',
             'password',
         ]
-        # exclude = ['first_name']
-        labels = {
-            'username': 'Username',
-        }
-
-        error_messages = {
-            'username': {
-                'required': 'This field must not be empty',
-            }
-        }
 
     def clean(self):
         cleaned_data = super().clean()
