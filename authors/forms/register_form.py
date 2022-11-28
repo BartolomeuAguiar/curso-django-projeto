@@ -12,22 +12,34 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['email'], 'Your e-mail')
         add_placeholder(self.fields['first_name'], 'Ex.: John')
         add_placeholder(self.fields['last_name'], 'Ex.: Doe')
-        add_placeholder(self.fields['password'], 'Type you password')
-        add_placeholder(self.fields['password2'], 'Repeat you password')
+        add_placeholder(self.fields['password'], 'Type your password')
+        add_placeholder(self.fields['password2'], 'Repeat your password')
 
     username = forms.CharField(
         label='Username',
-        error_messages={
-            'required': 'This field must not be empty',
-            'min_length': 'Username must have 4 characters',
-            'max_length': 'Username must less than 150 characters',
-        },
         help_text=(
             'Username must have letters, numbers or one of those @.+-_. '
             'The length should be between 4 and 150 characters.'
         ),
-        min_length=4,
-        max_length=150,
+        error_messages={
+            'required': 'This field must not be empty',
+            'min_length': 'Username must have at least 4 characters',
+            'max_length': 'Username must have less than 150 characters',
+        },
+        min_length=4, max_length=150,
+    )
+    first_name = forms.CharField(
+        error_messages={'required': 'Write your first name'},
+        label='First name'
+    )
+    last_name = forms.CharField(
+        error_messages={'required': 'Write your last name'},
+        label='Last name'
+    )
+    email = forms.EmailField(
+        error_messages={'required': 'E-mail is required'},
+        label='E-mail',
+        help_text='The e-mail must be valid.',
     )
     password = forms.CharField(
         widget=forms.PasswordInput(),
@@ -39,28 +51,15 @@ class RegisterForm(forms.ModelForm):
             'one lowercase letter and one number. The length should be '
             'at least 8 characters.'
         ),
-        label='Password',
         validators=[strong_password],
+        label='Password'
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput(),
         label='Password2',
         error_messages={
-            'required': 'Please repeat your password.'
+            'required': 'Please, repeat your password'
         },
-    )
-    first_name = forms.CharField(
-        error_messages={'required': 'Write you name'},
-        label='First name'
-    )
-    last_name = forms.CharField(
-        error_messages={'required': 'Write you last name'},
-        label='Last name'
-    )
-    email = forms.EmailField(
-        error_messages={'required': 'E-mail is required.'},
-        label='E-mail',
-        help_text=('The e-mail must be valid.'),
     )
 
     class Meta:
@@ -79,20 +78,25 @@ class RegisterForm(forms.ModelForm):
 
         if exists:
             raise ValidationError(
-                'User e-mail is alredy in use', code='invalid'
+                'User e-mail is already in use', code='invalid',
             )
+
         return email
 
     def clean(self):
         cleaned_data = super().clean()
+
         password = cleaned_data.get('password')
         password2 = cleaned_data.get('password2')
 
         if password != password2:
             password_confirmation_error = ValidationError(
-                'Password and Password2 must be equal',
-                code='invalid')
+                'Password and password2 must be equal',
+                code='invalid'
+            )
             raise ValidationError({
                 'password': password_confirmation_error,
-                'password2': password_confirmation_error,
+                'password2': [
+                    password_confirmation_error,
+                ],
             })
