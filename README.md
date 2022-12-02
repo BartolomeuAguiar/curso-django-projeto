@@ -20,3 +20,6 @@ https://docs.djangoproject.com/en/4.1/topics/db/queries/#complex-lookups-with-q
 
 #### "Password" Generator
 python -c "import string as s;from random import SystemRandom as sr;print(''.join(sr().choices(s.ascii_letters + s.punctuation + 'ç', k=64)))"
+
+### Selenium Documentation
+https://selenium-python.readthedocs.io/index.html
