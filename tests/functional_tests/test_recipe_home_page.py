@@ -1,4 +1,3 @@
-import os
 import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
