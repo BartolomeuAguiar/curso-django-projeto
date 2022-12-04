@@ -95,3 +95,20 @@ def dashboard(request):
                   context={
                       'recipes': recipes,
                   })
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_recipe_edit(request, id):
+    recipe = Recipe.objects.filter(
+        is_published=False,
+        author=request.user,
+        pk=id
+    )
+
+    if not recipe:
+        raise Http404()
+
+    return render(request, 'authors/pages/dashboard_recipe.html',
+                  context={
+
+                  })
