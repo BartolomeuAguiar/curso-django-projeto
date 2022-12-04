@@ -6,4 +6,5 @@ omit =
     manage.py,
     recipes/migrations/*,
     project/*,
-    utils\recipes\factory.py
+    utils\recipes\factory.py,
+    utils\browser.py

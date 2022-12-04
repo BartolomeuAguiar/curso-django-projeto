@@ -174,3 +174,8 @@ class AuthorRegisterFormIntegrationTest(DjangoTestCase):
         )
 
         self.assertTrue(is_authenticated)
+
+    def test_raise_error_404_login_get(self):
+        url = reverse('authors:login_create')
+        response = self.client.get(url, data=self.form_data, follow=True)
+        self.assertEqual(response.status_code, 404)
