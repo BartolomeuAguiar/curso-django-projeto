@@ -62,6 +62,15 @@ h6 {
     font-family: var(--font-headings);
 }
 
+img {
+    max-width: 100%;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
 .container {
     max-width: 144rem;
     margin: 0 auto;
@@ -356,10 +365,6 @@ h6 {
     grid-column: span 2;
 }
 
-.left {
-    text-align: left;
-}
-
 .plaintext-button {
     display: inline;
     border: none;
@@ -448,6 +453,10 @@ h6 {
 
 .center {
     text-align: center;
+}
+
+.left {
+    text-align: left;
 }
 
 .m-x {
