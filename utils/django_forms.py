@@ -21,3 +21,10 @@ def strong_password(password):
                                ),
                               code='invalid'
                               )
+
+
+# def clean_field(field_name, error_message):
+#     field_value = self.cleaned_data.get(field_name)
+#     if not is_positive_number(field_value):
+#         self._my_errors[field_name].append(error_message)
+#     return field_value
