@@ -2,7 +2,7 @@ import os
 
 from django.db.models import Q
 from django.http.response import Http404
-from django.shortcuts import get_list_or_404, get_object_or_404, render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView
 
 from utils.pagination import make_pagination
@@ -45,6 +45,8 @@ class RecipeListViewBase(ListView):
 class RecipeListViewHome(RecipeListViewBase):
     template_name = 'recipes/pages/home.html'
 
+# Returns the Recipes filtereds by category
+
 
 class RecipeListViewCategory(RecipeListViewBase):
     model = Recipe
@@ -58,7 +60,6 @@ class RecipeListViewCategory(RecipeListViewBase):
             category__id=self.kwargs.get('category_id')
         )
         return qs
-# Returns the Recipes filtereds by category
 
 
 # Returns the datailed recipe page
@@ -75,6 +76,31 @@ def recipe(request, id):
     })
 
 # Returns in the Search page the recipes that contains the search term
+
+
+class RecipeListViewSearch(RecipeListViewBase):
+    template_name = 'recipes/pages/search.html'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        search_term = self.request.GET.get('q', '')
+        qs = qs.filter(
+            Q(
+                Q(title__icontains=search_term) |
+                Q(description__icontains=search_term),
+            ), is_published=True
+        )
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        search_term = self.request.GET.get('q', '')
+        ctx.update({
+            'page_title': f'Search for "{search_term} |',
+            'search_term': search_term,
+            'additional_url_query': f'&q={search_term}',
+        })
+        return ctx
 
 
 def search(request):
