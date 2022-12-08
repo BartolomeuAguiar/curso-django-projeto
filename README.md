@@ -23,3 +23,7 @@ python -c "import string as s;from random import SystemRandom as sr;print(''.joi
 
 ### Selenium Documentation
 https://selenium-python.readthedocs.io/index.html
+
+#### Class Based View
+https://docs.djangoproject.com/pt-br/4.0/topics/class-based-views/
+https://docs.djangoproject.com/pt-br/4.0/ref/class-based-views/

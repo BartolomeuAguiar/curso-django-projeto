@@ -1,13 +1,14 @@
 <div class="recipe recipe-list-item">
     <div class="recipe-cover">
-        <a href=" {% url 'recipes:recipe' recipe.id %} ">
-            <img src={{ recipe.cover.url }} alt="temporario">
+        <a href=" {{ recipe.get_absolute_url }} ">
+            <img src="{{ recipe.cover.url }}" 
+            alt="Recipe cover for {{ recipe.title }}">
         </a>
     </div>
     <div class="recipe-title-container">
         <span class="recipe-author-item">{{ recipe.slug }}</span>
         <h2 class="recipe-title">
-            <a href=" {% url 'recipes:recipe' recipe.id %} ">
+            <a href=" {{ recipe.get_absolute_url }} ">
                 {{ recipe.title }}
             </a>
         </h2>
