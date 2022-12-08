@@ -42,39 +42,24 @@ class RecipeListViewBase(ListView):
         return ctx
 
 
-def home(request):
-    recipes = Recipe.objects.filter(
-        is_published=True
-    ).order_by('-id')
+class RecipeListViewHome(RecipeListViewBase):
+    template_name = 'recipes/pages/home.html'
 
-    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
-    return render(request, 'recipes/pages/home.html', context={
-        'recipes': page_obj,
-        'pagination_range': pagination_range,
+class RecipeListViewCategory(RecipeListViewBase):
+    model = Recipe
+    context_object_name = 'recipes'
+    ordering = ['-id']
+    template_name = 'recipes/pages/category.html'
 
-    })
-
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(
+            category__id=self.kwargs.get('category_id')
+        )
+        return qs
 # Returns the Recipes filtereds by category
 
-
-def category(request, category_id):
-    recipes = get_list_or_404(Recipe.objects.filter(category__id=category_id,
-                              is_published=True).order_by('-id'))
-
-    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
-
-    category_name = getattr(
-        getattr(recipes[0], 'category', None),
-        'name',
-        'Not Found'
-    )
-
-    return render(request, 'recipes/pages/category.html', context={
-        'recipes': page_obj,
-        'pagination_range': pagination_range,
-        'title': f'{category_name} - Category |'
-    })
 
 # Returns the datailed recipe page
 
