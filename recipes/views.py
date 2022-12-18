@@ -23,7 +23,7 @@ class RecipeListViewBase(ListView):
             is_published=True,
         )
         qs = qs.select_related('author', 'category')
-        qs = qs.prefetch_related('tags')
+        qs = qs.prefetch_related('tags', 'author__profile')
         return qs
 
     def get_context_data(self, *args, **kwargs):
