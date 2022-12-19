@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-18 15:28-0400\n"
+"POT-Creation-Date: 2022-12-18 22:36-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,75 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\base_templates\global\partials\footer.html:10
+msgid "Powered by Django"
+msgstr "Desenvolvido em Django"
+
+#: .\recipes\models.py:22
+msgid "Title"
+msgstr "Título"
+
+#: .\recipes\models.py:24
+msgid "Description"
+msgstr "Descrição"
+
+#: .\recipes\models.py:26
+msgid "Preparation time"
+msgstr "Tempo de preparo"
+
+#: .\recipes\models.py:28
+msgid "Preparation time unit"
+msgstr "Unidade de tempo de preparo"
+
+#: .\recipes\models.py:29 .\recipes\templates\recipes\partials\recipe.html:67
+msgid "Servings"
+msgstr "Porções"
+
+#: .\recipes\models.py:31
+msgid "Serving units"
+msgstr "Unidade de Porções"
+
+#: .\recipes\models.py:32
+msgid "Preparation steps"
+msgstr "Passos de preparo"
+
+#: .\recipes\models.py:38
+msgid "Cover"
+msgstr "Capa"
+
+#: .\recipes\models.py:41 .\recipes\views.py:61
+msgid "Category"
+msgstr "Categoria"
+
+#: .\recipes\models.py:43
+msgid "Author"
+msgstr "Autor"
+
+#: .\recipes\models.py:45
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: .\recipes\models.py:67
+msgid "Found recipes with the same title."
+msgstr "Encontradas receitas com o mesmo título"
+
+#: .\recipes\templates\recipes\pages\home.html:8
+msgid "NO RECIPES FOUND HERE"
+msgstr "Nenhuma Receita Encontrada"
+
 #: .\recipes\templates\recipes\partials\recipe.html:61
 msgid "Preparation"
 msgstr "Preparo"
 
-#: .\recipes\templates\recipes\partials\recipe.html:67
-msgid "Servings"
-msgstr "Porções"
-
 #: .\recipes\templates\recipes\partials\recipe.html:78
 msgid "See more..."
 msgstr "Ver mais..."
+
+#: .\recipes\views.py:145
+msgid "No recipes found"
+msgstr "Nenhuma receita encontrada"
+
+#: .\recipes\views.py:152
+msgid "Search for"
+msgstr "Pesquisa por"
