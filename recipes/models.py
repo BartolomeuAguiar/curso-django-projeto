@@ -3,6 +3,8 @@ from collections import defaultdict
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import F, Value
+from django.db.models.functions import Concat
 from django.forms import ValidationError
 from django.urls import reverse
 from django.utils.text import slugify
@@ -16,6 +18,19 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class RecipeManager(models.Manager):
+    def get_published(self):
+        return self.filter(
+            is_published=True
+        ).annotate(
+            author_full_name=Concat(
+                F('author__first_name'), Value(' '),
+                F('author__last_name'), Value(' ('),
+                F('author__username'), Value(')'),
+            )
+        ).order_by('-id')
 
 
 class Recipe(models.Model):
@@ -35,7 +50,8 @@ class Recipe(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(
-        upload_to='recipes/covers/%Y/%m/%d', blank=True, verbose_name=_('Cover'))
+        upload_to='recipes/covers/%Y/%m/%d',
+        blank=True, verbose_name=_('Cover'))
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True,
         blank=True, default=None, verbose_name=_('Category'))
